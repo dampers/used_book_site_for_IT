@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = ["naver.com"]
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -51,6 +51,7 @@ PROJECT_APPS = [
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -149,3 +150,12 @@ LOGIN_URL = "/users/login/"
 # locale
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+
+
+# Heroku: Update database configuration from $DATABASE_URL.
+
+import dj_database_url
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES["default"].update(db_from_env)
+
