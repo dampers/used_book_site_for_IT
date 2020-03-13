@@ -1,0 +1,21 @@
+{
+  "name": "ajungbooks",
+  "version": "1.0.0",
+  "description": "used book site for IT Information Engineering Department",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1",
+    "tailwindcss": "^1.2.0"
+  },
+  "scripts": {
+    "css": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dampers/used_book_site_for_IT.git"
+  },
+  "homepage": "https://github.com/dampers/used_book_site_for_IT#readme"
+}

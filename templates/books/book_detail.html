@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load on_favs %}
+
+{% block page_title %}
+    {{book.title}}
+{% endblock page_title %}
+
+{% block content %}
+    <div class="mt-16 container max-w-full h-25vh lg:h-75vh xl:h-75vh flex mb-10 lg:mb-20">
+        <div class="h-full w-1/2 bg-center bg-cover" style="background-image:url({{book.first_photo}})"></div>
+        <div class="h-full w-1/2 flex flex-wrap">
+            {% for photo in book.get_next_four_photos %}
+                <div style="background-image:url({{photo.file.url}})" class="w-1/2 h-auto bg-cover bg-center border-gray-700 border"></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container mx-auto flex justify-around pb-5 lg:w-7/12 md:w-1/2 xl:w-1/2 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+        <div class="w-full">
+            <div class="">
+                {% on_favs book as on_favs_boolean %}
+                {% if on_favs_boolean %}
+                    <a class="block mb-5 bg-teal-500 btn-link w-full lg:w-2/6" href="{% url 'lists:toggle-book' book.pk %}?action=remove">관심목록에서 삭제하기</a>
+                {% else %}
+                    <a class="block mb-5 btn-link w-full lg:w-2/6" href="{% url 'lists:toggle-book' book.pk %}?action=add">관심목록에 추가하기</a>
+                {% endif %}
+                {% if book.seller.pk != user.pk %}
+                    <a href="{% url 'convlists:save-conversation' book.seller.pk user.pk %}" class=" w-full block mb-5 lg:w-2/6 bg-blue-500 btn-link">메세지 보내기</a>
+                {% endif %}
+            </div>
+            <div class="flex justify-between">
+                <div class="mb-5">
+                    <h4 class="text-3xl font-medium mb-px">{{book.title}}</h4>
+                </div>
+                <a href="{{book.seller.get_absolute_url}}" class="flex flex-col items-center">
+                    {% include "mixins/user_avatar.html" with user=book.seller %}
+                    <span class="mt-2 text-gray-500">{{book.seller.first_name}}</span>
+                </a>
+            </div>
+        </div>
+        <div class="flex">
+            <span class="mr-5 font-bold mb-3">가격 : {{book.price}}원</span>
+        </div>
+        <div>
+            <span class="mr-5 font-light mb-6">상태 : {{book.condition}}</span>
+        </div>
+        <p class="flex">
+            {{book.description}}
+        </p>
+    </div>
+    <div class="w-full container lg:w-7/12 md:w-1/2 xl:w-1/2 mx-auto">
+        {% if book.seller == user %}
+        <a href="{% url 'books:edit' book.pk %}" class="btn-link block flex justify-center items-center">수정하기</a>
+        {% endif %}
+    </div>
+{% endblock content %}

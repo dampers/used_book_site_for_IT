@@ -1,0 +1,12 @@
+<ul class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
+    {% if user.is_authenticated %}
+        <li class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"><a href="{{user.get_absolute_url}}">Profile</a></li>
+        <li class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"><a href="{% url 'books:create' %}">sell book</a></li>
+        <li class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"><a href="{% url 'lists:see-favs' %}">관심목록 {{user.list.books.count}}</a></li>
+        <li class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"><a href="{% url 'convlists:see-convs' %}">대화 목록</a></li>
+        <li class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"><a href="{% url "users:logout" %}">Log out</a></li>
+    {% else %}
+        <li class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"><a href="{% url "users:login" %}">Log in</a></li>
+        <li class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"><a href="{% url "users:signup" %}">Sign up</a></li>
+    {% endif %}
+</ul>

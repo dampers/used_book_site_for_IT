@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    {{user.first_name}}'s 대화
+{% endblock page_title %}
+
+{% block content %}
+
+    <div class="min-h-75vh mt-16">
+
+        <h3 class="mb-12 text-2xl text-center"> 대화 목록 </h3>
+
+
+    <div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+        <div class="flex flex-wrap -mx-40 mb-10 ml-2 mr-2">
+            {% for conv in user.convlist.conversations.all  %}
+                <div class="block mb-5 w-full">
+                    <a class="block text-center py-3 rounded-lg font-light text-lg w-full text-white bg-blue-500" href="{% url 'conversations:detail' conv.pk %}">{{conv}}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    </div>
+{% endblock content %}

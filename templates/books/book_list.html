@@ -1,0 +1,37 @@
+{% extends "base.html"%}
+
+{% block page_title %}
+    Book list
+{% endblock page_title %}
+
+{% block content %}
+
+    <div class="container mx-auto pb-10 w-screen-sm lg:max-w-screen-xl mt-16">
+        
+        <div class="rounded-xl bg-gray-800 w-full h-25vh lg:h-50vh mb-10 lg:mb-24 bg-cover bg-center flex items-center" style="background-image:url(static/img/book_list_bg.jpg)"></div>
+        
+        <div class="flex flex-wrap mb-10 lg:w-full md:w-1/2 xl:w-full sm:justify-center">
+            {% for book in books %}
+                {% include 'mixins/book_card.html' with book=book %}
+            {% endfor %}
+        </div>
+
+        <div class="flex items-center justify-center mx-auto container">
+            {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="text-teal-400">
+                <i class="fas fa-arrow-left fa-lg"></i>
+                </a>
+            {% endif %}
+
+            <span class="mx-3 font-medium text-lg">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="text-teal-400">
+                <i class="fas fa-arrow-right fa-lg"></i>
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock content %}

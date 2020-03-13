@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Search
+{% endblock page_title %}
+
+
+{% block content %}
+
+    <div class="container mx-auto pb-10 w-screen-sm lg:max-w-screen-xl mt-16">  
+        
+        <div class="flex flex-wrap mb-10 lg:w-full md:w-1/2 xl:w-full sm:justify-center">
+            {% for book in books %}
+                {% include 'mixins/book_card.html' with book=book %}
+            {% endfor %}
+        </div>
+
+        <div class="flex items-center justify-center mx-auto container">
+            {% if books.has_previous %}
+                <a href="?{% if title %}title={{title}}&{% endif %}page={{books.previous_page_number}}" class="text-teal-400"><i class="fas fa-arrow-left fa-lg"></i></a>
+            {% endif %}
+            <span class="mx-3 font-medium text-lg">{{books.number}} of {{books.paginator.num_pages}}</span>
+            {% if books.has_next %}
+                <a href="?{% if title %}title={{title}}&{% endif %}page={{books.next_page_number}}" class="text-teal-400"><i class="fas fa-arrow-right fa-lg"></i></a>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock content %}
+<!--
+{% if books.has_previous %}
+            <a href="?page={{books.number|add:-1}}/?title={{title}}">Previous</a>
+        {% endif %}
+        Page {{books.number}} of {{books.paginator.num_pages}}
+        {% if books.has_next %}
+            <a href="?page={{books.number|add:1}}/?title={{title}}">Next</a>
+        {% endif %}
+
+
+        {% if books.has_previous %}
+                <a href="?page={{books.previous_page_number}}" class="text-teal-400">
+                <i class="fas fa-arrow-left fa-lg"></i>
+                </a>
+            {% endif %}
+
+            <span class="mx-3 font-medium text-lg">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="text-teal-400">
+                <i class="fas fa-arrow-right fa-lg"></i>
+                </a>
+            {% endif %}
+        -->

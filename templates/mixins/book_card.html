@@ -1,0 +1,30 @@
+<div class="w-full xl:w-1/4 lg:w-1/4 mb-10 px-3 mb-0 px-0 ">
+    {% if book.deal_complete %}
+            <span class="flex justify-center text-red-400 font-bold">판매완료된 상품입니다.</span>
+    {% else %}
+            <span class="flex justify-center text-green-400 font-bold">판매중</span>
+    {% endif %}
+    <a href="{% url 'books:detail' book.pk %}">
+        <div class="w-full h-64 bg-cover bg-center rounded-lg mb-4 bg-gray-400" style="background-image: url({{book.first_photo}});"></div>
+        <div class="flex justify-between">
+            {% if book.seller.IT_depart %}
+                <span class="mr-px uppercase font-bold text-xs border border-black text-black rounded py-1 px-1">IT정보공학과</span>
+            {% else %}
+                <span></span>
+            {% endif %}
+            
+            <span class="font-bold">상태 : {{book.condition}}</span>
+        </div>
+        <div class="flex justify-between mb-2">
+            <div>
+                <span class="text-sm text-black ml-2">{{book.title}}</span>
+            </div>
+            <div>
+                <span class="text-sm flex items-center font-bold">
+                    {{book.price}}
+                    <i class="fas fa-won-sign text-yellow-500 text-sm ml-1"></i>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
