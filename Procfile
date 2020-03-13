@@ -1,1 +1,1 @@
-web: gunicorn AJUNG_books.wsgi --log-file -
+web: gunicorn config.wsgi --log-file -
