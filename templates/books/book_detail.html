@@ -17,14 +17,19 @@
     <div class="container mx-auto flex justify-around pb-5 lg:w-7/12 md:w-1/2 xl:w-1/2 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
         <div class="w-full">
             <div class="">
-                {% on_favs book as on_favs_boolean %}
-                {% if on_favs_boolean %}
-                    <a class="block mb-5 bg-teal-500 btn-link w-full lg:w-2/6" href="{% url 'lists:toggle-book' book.pk %}?action=remove">관심목록에서 삭제하기</a>
+                {% if request.user.is_authenticated %}
+                    {% on_favs book as on_favs_boolean %}
+                    {% if on_favs_boolean %}
+                        <a class="block mb-5 bg-teal-500 btn-link w-full lg:w-2/6" href="{% url 'lists:toggle-book' book.pk %}?action=remove">관심목록에서 삭제하기</a>
+                    {% else %}
+                        <a class="block mb-5 btn-link w-full lg:w-2/6" href="{% url 'lists:toggle-book' book.pk %}?action=add">관심목록에 추가하기</a>
+                    {% endif %}
+                    {% if book.seller.pk != user.pk %}
+                        <a href="{% url 'convlists:save-conversation' book.seller.pk user.pk %}" class=" w-full block mb-5 lg:w-2/6 bg-blue-500 btn-link">메세지 보내기</a>
+                    {% endif %}
                 {% else %}
-                    <a class="block mb-5 btn-link w-full lg:w-2/6" href="{% url 'lists:toggle-book' book.pk %}?action=add">관심목록에 추가하기</a>
-                {% endif %}
-                {% if book.seller.pk != user.pk %}
-                    <a href="{% url 'convlists:save-conversation' book.seller.pk user.pk %}" class=" w-full block mb-5 lg:w-2/6 bg-blue-500 btn-link">메세지 보내기</a>
+                    <span class="block mb-5 btn-link w-full lg:w-2/6">로그인 후 사용하실 수 있습니다.</span>
+                    <span class=" w-full block mb-5 lg:w-2/6 bg-blue-500 btn-link">로그인 후 사용하실 수 있습니다.</span>
                 {% endif %}
             </div>
             <div class="flex justify-between">

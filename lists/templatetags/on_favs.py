@@ -1,5 +1,9 @@
 from django import template
+from django.http import  HttpResponse
 from lists import models as list_models
+from django.contrib.auth.models import AnonymousUser
+from django.shortcuts import render
+
 
 register = template.Library()
 

@@ -5,7 +5,9 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.models import AnonymousUser
 from users import mixins as user_mixins
+from users import models as user_models
 from . import models, forms
 
 PER_PAGE = 1
@@ -27,6 +29,9 @@ class BookDetail(DetailView):
     """ BookDeatail Definition """
 
     model = models.Book
+    def check(self, request):
+        if request.user.is_anonymous == False:
+            return render(request, "500.html")
 
 
 class SearchView(View):

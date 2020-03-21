@@ -22,10 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG")
-
 ALLOWED_HOSTS = ['*']
 
 DJANGO_APPS = [
@@ -132,7 +130,7 @@ AUTH_USER_MODEL = "users.User"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "/uploads/"
 
 
 # email configuration
